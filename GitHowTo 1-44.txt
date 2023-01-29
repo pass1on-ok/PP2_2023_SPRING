@@ -1,0 +1,330 @@
+1. 
+git config --global user.name "pp2-22B030495"
+git config --global user.email "k_oskenbay@kbtu.kz"
+
+git config --global core.autocrlf true
+git config --global core.safecrlf warn
+
+2.
+Download the tutorial materials
+Download the tutorial materials here:
+
+http://githowto.com/git_tutorial.zip
+
+3.
+mkdir hello
+cd hello
+touch hello.html
+
+git init
+
+git add hello.html
+git commit -m "First Commit"
+
+4.
+git status
+
+5.
+git status
+
+6.
+git add hello.html
+git status
+
+7.
+git add a.html
+git add b.html
+git commit -m "Changes for a and b"
+
+git add c.html
+git commit -m "Unrelated change to c"
+
+8.
+git commit
+
+git status
+
+9.
+git add hello.html
+
+git status
+
+git commit -m "Added standard HTML page tags"
+git status
+
+git add .
+git status
+
+git commit -m "Added HTML header"
+
+10.
+git log
+
+git log --pretty=oneline
+
+git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
+
+11.
+git config --global alias.co checkout
+git config --global alias.ci commit
+git config --global alias.st status
+git config --global alias.br branch
+git config --global alias.hist "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
+git config --global alias.type 'cat-file -t'
+git config --global alias.dump 'cat-file -p'
+
+12.
+git hist
+
+git checkout <hash>
+cat hello.html
+
+git checkout master
+cat hello.html
+
+13.
+git tag v1
+
+git checkout v1^
+cat hello.html
+
+git tag v1-beta
+
+git checkout v1
+git checkout v1-beta
+
+git tag
+
+git hist master --all
+
+14.
+git checkout master
+
+git status
+
+git checkout hello.html
+git status
+cat hello.html
+
+15.
+git add hello.html
+
+git status
+
+git reset HEAD hello.html
+
+git checkout hello.html
+git status
+
+16.
+git add hello.html
+git commit -m "Oops, we didn't want this commit"
+
+git revert HEAD
+
+git hist
+
+17.
+git hist
+
+git tag oops
+
+git reset --hard v1
+git hist
+
+git hist --all
+
+18.
+git tag -d oops
+git hist --all
+
+19.
+git add hello.html
+git commit -m "Add an author comment"
+
+git add hello.html
+git commit --amend -m "Add an author/email comment"
+
+git hist
+
+20.
+mkdir lib
+git mv hello.html lib
+git status
+
+git commit -m "Moved hello.html to lib"
+
+21.
+git add index.html
+git commit -m "Added index.html."
+
+22.
+ls -C .git
+
+ls -C .git/objects
+
+ls -C .git/objects/<dir>
+
+cat .git/config
+
+ls .git/refs
+ls .git/refs/heads
+ls .git/refs/tags
+cat .git/refs/tags/v1
+
+cat .git/HEAD
+
+23.
+git hist --max-count=1
+
+git cat-file -t <hash>
+git cat-file -p <hash>
+
+git cat-file -p <treehash>
+
+git cat-file -p <libhash>
+
+git cat-file -p <hellohash>
+
+24.
+git checkout -b style
+git status
+
+git add lib/style.css
+git commit -m "Added css stylesheet"
+
+git add lib/hello.html
+git commit -m "Hello uses style.css"
+
+git add index.html
+git commit -m "Updated index.html"
+
+25.
+git hist --all
+
+git checkout master
+cat lib/hello.html
+
+git checkout style
+cat lib/hello.html
+
+26.
+git checkout master
+git add README
+git commit -m "Added README"
+
+27.
+git hist --all
+
+28.
+git checkout style
+git merge master
+git hist --all
+
+29.
+git checkout master
+
+git add lib/hello.html
+git commit -m 'Life is great!'
+
+git hist --all
+
+git add lib/hello.html
+git commit -m "Merged master fixed conflict."
+
+
+30.
+Goals
+To learn the difference between relocating and merging.
+Discussion
+Let us look at the differences between relocating and merging. To do this, we need to get back into the repository at the time prior to the first merge, and then repeat the same steps but using relocating instead of merging.
+
+We will use the reset command to return the branch to a previous state.
+
+31.
+git checkout style
+git hist
+
+git reset --hard <hash>
+
+git hist --all
+
+32.
+git checkout master
+git hist
+
+33.
+git checkout master
+git hist
+
+git reset --hard <hash>
+git hist --all
+
+34.
+git checkout style
+git rebase master
+git hist
+
+35.
+git checkout master
+git merge style
+
+git hist
+
+36.
+So far we have been working with only one git repository. However, git is great for working with several repositories. These additional repositories can be stored locally, or accessed via network connection.
+
+In the next section we will create a new repo called “cloned_hello”. We will discuss moving changes from one repo to another, and dealing with conflicts when working with two repositories.
+
+
+
+Meanwhile, we will work with local repositories (the ones stored on your local HDD). Most of the information in this section can be also applied to working with multiple repositories no matter if they are stored locally or shared over a network.
+
+NOTE: We will make changes to both copies of our repositories. Notice the repository you are on every stage of the next lessons.
+
+37.
+cd ..
+pwd
+ls
+
+git clone hello cloned_hello
+ls
+
+38.
+cd cloned_hello
+ls
+
+git hist --all
+
+39.
+git remote
+
+git remote show origin
+
+40.
+git branch
+
+git branch -a
+
+41.
+cd ../hello
+# (You should be in the original hello repository now)
+
+git add README
+git commit -m "Changed README in original repo"
+
+42.
+cd ../cloned_hello
+git fetch
+git hist --all
+
+cat README
+43.
+git merge origin/master
+
+cat README
+44.
+git pull
+
+git fetch
+git merge origin/master
