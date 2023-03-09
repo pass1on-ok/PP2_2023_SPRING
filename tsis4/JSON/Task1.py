@@ -6,9 +6,9 @@ with open('sample-data.json', 'r') as f:
 
 
 print("Interface Status")
-print("="*80)
+print("="*90)
 print("{:<50} {:<25} {:<8} {:<6}".format("DN", "Description", "Speed", "MTU"))
-print("-"*80)
+print("-"*90)
 
 
 for intf in data['imdata']:
