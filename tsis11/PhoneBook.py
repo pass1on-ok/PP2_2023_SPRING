@@ -4,10 +4,10 @@ conn = None
 cur = None
 try:
     conn = psycopg2.connect(
-        host='localhost',
-        database='postgres',
-        user='postgres',
-        password='123456'
+        host="localhost",
+        database="postgres",
+        user="postgres",
+        password="123456"
     )
     conn.autocommit = True
     cur = conn.cursor()
@@ -30,27 +30,28 @@ try:
                 "INSERT INTO PhoneBook (first_name, last_name, phone_number) VALUES (%s, %s, %s)",
                 (row[1], row[2], row[3]))
 
-    """""
+    #Adding
+    '''
     first_name = input("Enter first name: ")
     last_name = input("Enter last name: ")
     phone_number = input("Enter phone number: ")
     cur.execute(
         "INSERT INTO phonebook (first_name, last_name, phone_number) VALUES (%s, %s, %s)",
         (first_name, last_name, phone_number))
-    """""
-
+    '''
     cur.execute("SELECT * FROM PhoneBook")
     for record in cur.fetchall():
         print(record)
-    """""
+    #Selecting
+    '''
     cur.execute("SELECT * FROM PhoneBook WHERE first_name = %s", ('John',))
     rows = cur.fetchall()
     print(rows)
-    """""
-    """""
+    '''
+    '''
     delete = "DELETE from PhoneBook WHERE first_name = %s"
     cur.execute(delete, ('John',))
-    """""
+    '''
 
     cur.execute("""
         CREATE OR REPLACE FUNCTION get_records_by_pattern_func(pattern TEXT)
@@ -101,7 +102,6 @@ try:
             -- Split each user's data into name and phone number
             name := split_part(users_list[i], ',', 1);
             phone := split_part(users_list[i], ',', 2);
-
             -- Check correctness of phone number
             IF length(phone) <> 10 OR NOT phone ~ E'^\\d+$' THEN
               -- If phone number is incorrect, add to incorrect_data array
@@ -115,17 +115,14 @@ try:
         END;
         $$ LANGUAGE plpgsql;
     """)
-
     users_list = [
         "Ann,1234567890",
         "Bob,5551234",
         "Chris,123-456-7890"
     ]
-
     cur.callproc('insert_many_users', (users_list, []))
     result = cur.fetchone()
     print(result[0])
-
     if result[1]:
         print('Incorrect data:', result[1])
     '''''
